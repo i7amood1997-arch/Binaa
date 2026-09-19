@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#1F4E6B" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="بناء البيت" />
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="icon" href="./icons/icon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="./icons/icon-180.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <title>بناء البيت</title>
+  <script type="module" crossorigin src="./assets/index-Bx4S2E4_.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-BN702ggz.css">
+</head>
+<body>
+  <div id="app"></div>
+  <script>
+    // Boot watchdog: if the app module never runs (most commonly because the JS file 404s —
+    // files uploaded one folder too deep, or GitHub Pages still set to "GitHub Actions" as its
+    // source so the branch upload isn't being served), the page would otherwise just sit blank
+    // with no explanation. Show something actionable instead.
+    (function () {
+      var booted = false;
+      window.__binaBooted = function () { booted = true; };
+      setTimeout(function () {
+        if (booted || document.getElementById('app').children.length) return;
+        document.getElementById('app').innerHTML =
+          '<div style="font-family:system-ui,sans-serif;direction:rtl;text-align:right;max-width:34rem;margin:0 auto;padding:2rem 1.25rem;line-height:1.7;color:#17211e">' +
+          '<h1 style="font-size:1.3rem;margin:0 0 .75rem">التطبيق لم يُحمَّل</h1>' +
+          '<p style="margin:0 0 1rem;color:#56625e">ملفات التطبيق لم تصل. غالباً أحد هذين السببين:</p>' +
+          '<ol style="margin:0 0 1.25rem;padding-inline-start:1.25rem">' +
+          '<li style="margin-bottom:.5rem"><b>مكان الملفات:</b> لازم <code>index.html</code> يكون في جذر المستودع مباشرة، مو داخل مجلد. افتح المستودع على GitHub — أول ملف بالقائمة لازم يكون <code>index.html</code>.</li>' +
+          '<li><b>إعداد Pages:</b> من Settings ← Pages، لازم <b>Source</b> تكون <b>Deploy from a branch</b> (فرع <code>main</code>، مجلد <code>/ (root)</code>) — مو "GitHub Actions".</li>' +
+          '</ol>' +
+          '<button id="binaReset" style="min-height:48px;padding:0 1.1rem;border-radius:12px;border:1px solid #d6dcda;background:#fff;font:inherit;font-weight:600;cursor:pointer">مسح الذاكرة المؤقتة وإعادة المحاولة</button>' +
+          '</div>';
+        document.getElementById('binaReset').onclick = function () {
+          var done = function () { location.reload(true); };
+          if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then(function (rs) {
+              return Promise.all(rs.map(function (r) { return r.unregister(); }));
+            }).then(function () {
+              return window.caches ? caches.keys().then(function (ks) {
+                return Promise.all(ks.map(function (k) { return caches.delete(k); }));
+              }) : null;
+            }).then(done).catch(done);
+          } else done();
+        };
+      }, 6000);
+    })();
+  </script>
+</body>
+</html>
